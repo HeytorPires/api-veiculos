@@ -9,7 +9,7 @@ export type SearchParams = {
 };
 
 export interface IVehicleRepository {
-  findAll({ page, skip, take }: SearchParams): Promise<IPaginateVehicles>;
+  findAll(): Promise<IPaginateVehicles>;
   findById(id: number): Promise<IVehicle | undefined>;
   create(data: IVehicleCreate): Promise<IVehicle>;
   save(customer: IVehicle): Promise<IVehicle>;

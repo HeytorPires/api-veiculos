@@ -7,15 +7,15 @@ import UpdateVehicleService from '@modules/vehicles/services/UpdateVehicleServic
 import DeleteVehicleService from '@modules/vehicles/services/DeleteVehicleService';
 
 export default class VehicleController {
-  public async index(request: Request, response: Response): Promise<Response> {
-    const page = request.query.page ? Number(request.query.page) : 1;
-    const limit = request.query.limit ? Number(request.query.limit) : 15;
-
+  public index = async (
+    request: Request,
+    response: Response
+  ): Promise<Response> => {
     const listCustomers = container.resolve(ListVehicleService);
-    const customers = await listCustomers.execute({ page, limit });
+    const customers = await listCustomers.execute();
 
-    return response.json(customers);
-  }
+    return response.status(200).json(customers);
+  };
 
   public async show(request: Request, response: Response) {
     const id = Number(request.params.id);

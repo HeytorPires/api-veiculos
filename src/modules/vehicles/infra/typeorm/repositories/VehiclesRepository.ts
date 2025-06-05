@@ -55,27 +55,12 @@ class VehicleRepository implements IVehicleRepository {
     const customer = await this.ormRepository.findOne({ where: { id } });
     return customer;
   }
-  public async findAll({
-    page,
-    skip,
-    take,
-  }: SearchParams): Promise<IPaginateVehicles> {
-    const [customers, count] = await this.ormRepository
+  public async findAll(): Promise<IPaginateVehicles> {
+    const [customers] = await this.ormRepository
       .createQueryBuilder()
-      .skip(skip)
-      .take(take)
       .getManyAndCount();
 
-    const lastPage = Math.ceil(count / take);
-
     return {
-      from: skip + 1,
-      to: skip + customers.length,
-      per_page: take,
-      total: count,
-      current_page: page,
-      prev_page: page > 1 ? page - 1 : null,
-      next_page: page < lastPage ? page + 1 : null,
       data: customers,
     };
   }
