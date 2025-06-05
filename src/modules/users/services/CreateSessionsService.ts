@@ -37,9 +37,8 @@ class CreateSessionsService {
     // const ExpiresTime: string | number = authConfig.jwt.expiresIn;
     const token = sign({}, hashToken, {
       subject: user.id,
-      expiresIn: '1d',
     });
-    return { user, token };
+    return { token };
   }
 }
 
