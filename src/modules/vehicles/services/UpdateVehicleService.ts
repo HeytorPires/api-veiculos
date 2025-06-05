@@ -8,7 +8,7 @@ import { IVehicle } from '../domain/models/IVehicles';
 @injectable()
 class UpdateVehicleService {
   constructor(
-    @inject('CustomersRepository')
+    @inject('VehiclesRepository')
     private vehiclesRepository: IVehicleRepository
   ) {
     this.vehiclesRepository;

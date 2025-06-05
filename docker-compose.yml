@@ -3,14 +3,14 @@ version: '3.8'
 services:
   db:
     image: postgres
-    container_name: postgres_db
+    container_name: postgres_veiculos
     restart: always
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: docker
-      POSTGRES_DB: apivendas
+      POSTGRES_DB: api-veiculos
     volumes:
       - pgdata:/var/lib/postgresql/data
 
@@ -28,7 +28,7 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASS=docker
-      - DB_NAME=apivendas
+      - DB_NAME=api-veiculos
 
 volumes:
   pgdata:

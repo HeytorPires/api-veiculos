@@ -40,7 +40,7 @@ vehicleRouter.post(
       data_entrega: Joi.date().required(),
       data_fabricacao: Joi.date().required(),
       data_venda: Joi.date().required(),
-      pais_operação: Joi.string().required(),
+      pais_operacao: Joi.string().required(),
       concessionaria_venda: Joi.string().required(),
       data_ultimo_reparo: Joi.date().required(),
       documento_proprietario: Joi.string().required(),
@@ -53,7 +53,7 @@ vehicleRouter.put(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+      id: Joi.number().required(),
     },
     [Segments.BODY]: {
       placa: Joi.string().required(),
@@ -61,7 +61,7 @@ vehicleRouter.put(
       data_entrega: Joi.date().required(),
       data_fabricacao: Joi.date().required(),
       data_venda: Joi.date().required(),
-      pais_operação: Joi.string().required(),
+      pais_operacao: Joi.string().required(),
       concessionaria_venda: Joi.string().required(),
       data_ultimo_reparo: Joi.date().required(),
       documento_proprietario: Joi.string().required(),

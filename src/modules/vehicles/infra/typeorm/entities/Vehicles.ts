@@ -34,7 +34,7 @@ class Vehicle implements IVehicle {
   pais_operacao: string;
 
   @Column({ nullable: true })
-  concessionaria_venda: string | null;
+  concessionaria_venda: string;
 
   @Column({ type: 'date', nullable: true })
   data_ultimo_reparo: Date | null;

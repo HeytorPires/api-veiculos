@@ -1,15 +1,15 @@
 import { container } from 'tsyringe';
 
-import { ICustomerRepository } from '@modules/customers/domain/repositories/ICustomerRepository';
-import { IUserRepository } from '@modules/users/infra/domain/repositories/IUserRepository';
-import { IUserTokensRepository } from '@modules/users/infra/domain/repositories/IUserTokensRepository';
-import CustomersRepository from '@modules/customers/infra/typeorm/repositories/CustomersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 import UserTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
+import { IVehicleRepository } from '@modules/vehicles/domain/repositories/IVehiclesRepository';
+import VehicleRepository from '@modules/vehicles/infra/typeorm/repositories/VehiclesRepository';
+import { IUserRepository } from '@modules/users/domain/repositories/IUserRepository';
 
-container.registerSingleton<ICustomerRepository>(
-  'CustomersRepository',
-  CustomersRepository
+container.registerSingleton<IVehicleRepository>(
+  'VehiclesRepository',
+  VehicleRepository
 );
 
 container.registerSingleton<IUserRepository>(
