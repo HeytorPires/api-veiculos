@@ -10,7 +10,7 @@ class UsersRepository implements IUserRepository {
   }
 
   public async create({ name, email, password }: ICreateUser): Promise<User> {
-    const user = this.ormRepository.create({ name, email, password });
+    const user = this.ormRepository.create({ email, password });
     await this.ormRepository.save(user);
     return user;
   }
