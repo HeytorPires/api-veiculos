@@ -14,7 +14,7 @@ class ShowVehicleService {
     const vehicle = await this.vehicleRepository.findById(id);
 
     if (!vehicle) {
-      throw new AppError('User not found.');
+      throw new AppError('Vehicle not found.');
     }
 
     return vehicle;

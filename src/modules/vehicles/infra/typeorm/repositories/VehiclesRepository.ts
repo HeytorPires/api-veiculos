@@ -2,10 +2,7 @@ import { Repository, getRepository } from 'typeorm';
 import Vehicles from '../entities/Vehicles';
 import { IVehicleCreate } from '@modules/vehicles/domain/models/IVehicleCreate';
 import { IPaginateVehicles } from '@modules/vehicles/domain/models/IPaginateVehicles';
-import {
-  IVehicleRepository,
-  SearchParams,
-} from '@modules/vehicles/domain/repositories/IVehiclesRepository';
+import { IVehicleRepository } from '@modules/vehicles/domain/repositories/IVehiclesRepository';
 
 class VehicleRepository implements IVehicleRepository {
   private ormRepository: Repository<Vehicles>;
@@ -53,6 +50,10 @@ class VehicleRepository implements IVehicleRepository {
   }
   public async findById(id: number): Promise<Vehicles | undefined> {
     const customer = await this.ormRepository.findOne({ where: { id } });
+    return customer;
+  }
+  public async findByVin(vin: string): Promise<Vehicles | undefined> {
+    const customer = await this.ormRepository.findOne({ where: { vin } });
     return customer;
   }
   public async findAll(): Promise<IPaginateVehicles> {

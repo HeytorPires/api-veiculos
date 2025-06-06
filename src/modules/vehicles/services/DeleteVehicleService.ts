@@ -10,11 +10,11 @@ class DeleteVehicleService {
   ) {
     this.vehicleRepository;
   }
-  public async execute(id: string): Promise<void> {
+  public async execute(id: number): Promise<void> {
     const vehicle = await this.vehicleRepository.findById(id);
 
     if (!vehicle) {
-      throw new AppError('User not found.');
+      throw new AppError('Vehicle not found.');
     }
     await this.vehicleRepository.remove(vehicle);
   }

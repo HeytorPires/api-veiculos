@@ -15,7 +15,7 @@ class Vehicle implements IVehicle {
   @Column({ unique: true })
   vin: string;
 
-  @Column({ unique: true })
+  @Column()
   placa: string;
 
   @Column()

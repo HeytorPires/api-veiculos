@@ -3,6 +3,7 @@ import { IVehicleCreate } from '../domain/models/IVehicleCreate';
 import { IVehicleRepository } from '../domain/repositories/IVehiclesRepository';
 import { IVehicle } from '@modules/vehicles/domain/models/IVehicles';
 import { inject, injectable } from 'tsyringe';
+import { cpf, cnpj } from 'cpf-cnpj-validator';
 
 @injectable()
 class CreateVehicleService {
@@ -24,12 +25,30 @@ class CreateVehicleService {
     data_ultimo_reparo,
     documento_proprietario,
   }: IVehicleCreate): Promise<IVehicle> {
-    // const emailExists = await this.customersRepository.findByEmail(email);
+    const VehicleExists = await this.vehicleRepository.findByVin(vin);
 
-    // if (emailExists) {
-    //   throw new AppError('Email address alredy used.');
-    // }
+    if (VehicleExists) {
+      throw new AppError('Vin alredy used.');
+    }
 
+    const cpfValid = cpf.isValid(documento_proprietario);
+    const cnpjValid = cnpj.isValid(documento_proprietario);
+
+    if (!cpfValid && !cnpjValid) {
+      throw new AppError('This document provided is not a valid CPF or CNPJ.');
+    }
+
+    if (data_fabricacao > data_entrega || data_fabricacao > data_venda) {
+      throw new AppError(
+        'manufacturing date cannot be later than delivery date or sale date'
+      );
+    }
+
+    if (data_ultimo_reparo > data_fabricacao) {
+      throw new AppError(
+        'The date of last repair cannot be earlier than the date of manufacture.'
+      );
+    }
     const customer = await this.vehicleRepository.create({
       vin,
       placa,

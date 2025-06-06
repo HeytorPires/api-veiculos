@@ -5,6 +5,7 @@ import { inject, injectable } from 'tsyringe';
 import { IVehicleRepository } from '../domain/repositories/IVehiclesRepository';
 import { IVehicleUpdate } from '../domain/models/IVehicleUpdate';
 import { IVehicle } from '../domain/models/IVehicles';
+import { cnpj, cpf } from 'cpf-cnpj-validator';
 @injectable()
 class UpdateVehicleService {
   constructor(
@@ -30,6 +31,25 @@ class UpdateVehicleService {
 
     if (!vehicle) {
       throw new AppError('User not found.');
+    }
+
+    const cpfValid = cpf.isValid(documento_proprietario);
+    const cnpjValid = cnpj.isValid(documento_proprietario);
+
+    if (!cpfValid && !cnpjValid) {
+      throw new AppError('This document provided is not a valid CPF or CNPJ.');
+    }
+
+    if (data_fabricacao > data_entrega || data_fabricacao > data_venda) {
+      throw new AppError(
+        'manufacturing date cannot be later than delivery date or sale date'
+      );
+    }
+
+    if (data_ultimo_reparo > data_fabricacao) {
+      throw new AppError(
+        'The date of last repair cannot be earlier than the date of manufacture.'
+      );
     }
 
     vehicle.vin = vin;
