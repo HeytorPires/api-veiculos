@@ -5,10 +5,8 @@ function HandlerVoid(
 ): RequestHandler {
   return (req, res, next) => {
     try {
-      // Chama o método do controller passando req, res, next
       const result = controllerMethod(req, res, next);
 
-      // Se for Promise (async), trata o erro com catch
       if (result && result instanceof Promise) {
         result.catch(next);
       }
